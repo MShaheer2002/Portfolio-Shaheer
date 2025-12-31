@@ -693,7 +693,7 @@ li:hover::after {
 
 /* Custom Cursor */
 * {
-  cursor: url('./assets/cursor.png'), auto;
+  cursor: url('./assets/cursor-2.png'), auto;
 }
 
 /* Custom cursor for interactive elements */
@@ -709,14 +709,14 @@ button,
 .category-label,
 input[type="checkbox"],
 [data-scroll] {
-  cursor: url('./assets/cursor.png'), pointer;
+  cursor: url('./assets/cursor-2.png'), pointer;
 }
 
 /* Ensure cursor works on all clickable elements */
 [onclick],
 [role="button"],
 [tabindex] {
-  cursor: url('./assets/cursor.png'), pointer;
+  cursor: url('./assets/cursor-2.png'), pointer;
 }
 
 /* Performance Optimizations */
@@ -809,7 +809,7 @@ html {
 
 /* Custom cursor optimization */
 * {
-  cursor: url('./assets/cursor.png'), auto;
+  cursor: url('./assets/cursor-2.png'), auto;
 }
 
 /* Focus management for accessibility */
