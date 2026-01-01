@@ -1103,3 +1103,10 @@ html {
     min-height: 200px;
   }
 }
+
+/* Utilities */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

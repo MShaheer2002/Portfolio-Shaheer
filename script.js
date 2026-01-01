@@ -779,8 +779,8 @@ document.addEventListener('DOMContentLoaded', function () {
       <div class="w-10 h-10 bg-gradient-to-r from-[#D83232] to-[#6133E9] rounded-full flex items-center justify-center">
         <i class="${icon} text-white"></i>
       </div>
-      <div class="flex-1">
-        <p class="text-white font-medium">${text}</p>
+      <div class="flex-1 min-w-0">
+        <p class="text-white font-medium truncate">${text}</p>
         <p class="text-gray-400 text-sm">${createdAt}</p>
       </div>
       <a href="https://github.com/${repoName}" target="_blank" class="text-gradient hover:text-[#17b890]">
