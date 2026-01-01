@@ -48,42 +48,81 @@ gsap.to(letters, {
 });
 
 
-// Animation for Hero Text
-gsap.from(".hero-left", {
-  opacity: 0,
-  x: -50,
-  duration: 1.2,
-  ease: "power3.out",
-});
+// Set up GSAP MatchMedia
+let mm = gsap.matchMedia();
 
-gsap.from(".hero-right", {
-  opacity: 0,
-  x: 50,
-  duration: 1.2,
-  ease: "power3.out",
-  delay: 0.3,
-});
-
-gsap.utils.toArray(".journey-card").forEach((card, index) => {
-  gsap.from(card, {
+mm.add("(min-width: 768px)", () => {
+  // Desktop animations
+  gsap.from(".hero-left", {
     opacity: 0,
-    y: 80,
-    duration: .4,
+    x: -50,
+    duration: 1.2,
     ease: "power3.out",
-    scrollTrigger: {
-      trigger: card,
-      start: "top 85%",
-      toggleActions: "play none none reverse",
-    },
-    delay: index * 0.1,
+  });
+
+  gsap.from(".hero-right", {
+    opacity: 0,
+    x: 50,
+    duration: 1.2,
+    ease: "power3.out",
+    delay: 0.3,
+  });
+
+  gsap.utils.toArray(".journey-card").forEach((card, index) => {
+    gsap.from(card, {
+      opacity: 0,
+      y: 80,
+      duration: .4,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: card,
+        start: "top 85%",
+        toggleActions: "play none none reverse",
+      },
+      delay: index * 0.1,
+    });
   });
 });
+
+mm.add("(max-width: 767px)", () => {
+  // Mobile animations (reduced movement)
+  gsap.from(".hero-left", {
+    opacity: 0,
+    y: 30,
+    duration: 1,
+    ease: "power3.out",
+  });
+
+  gsap.from(".hero-right", {
+    opacity: 0,
+    y: 30,
+    duration: 1,
+    ease: "power3.out",
+    delay: 0.2,
+  });
+
+  gsap.utils.toArray(".journey-card").forEach((card, index) => {
+    gsap.from(card, {
+      opacity: 0,
+      y: 30,
+      duration: .4,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: card,
+        start: "top 90%",
+        toggleActions: "play none none reverse",
+      },
+      delay: index * 0.05,
+    });
+  });
+});
+
 
 // HERO SECTION PARTICLES
 particlesJS("particles-hero", {
   "particles": {
     "number": {
-      "value": 200,
+      "value": window.innerWidth < 768 ? 80 : 200,
       "density": { "enable": true, "value_area": 800 }
     },
     "color": { "value": "#ffffff" },
@@ -105,6 +144,7 @@ particlesJS("particles-hero", {
   },
   "retina_detect": true
 });
+
 
 
 
