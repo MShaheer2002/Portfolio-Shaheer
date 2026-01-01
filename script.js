@@ -53,19 +53,11 @@ let mm = gsap.matchMedia();
 
 mm.add("(min-width: 768px)", () => {
   // Desktop animations
-  gsap.from(".hero-left", {
+  gsap.from(".hero-content", {
     opacity: 0,
-    x: -50,
+    y: 50,
     duration: 1.2,
     ease: "power3.out",
-  });
-
-  gsap.from(".hero-right", {
-    opacity: 0,
-    x: 50,
-    duration: 1.2,
-    ease: "power3.out",
-    delay: 0.3,
   });
 
   gsap.utils.toArray(".journey-card").forEach((card, index) => {
@@ -86,19 +78,11 @@ mm.add("(min-width: 768px)", () => {
 
 mm.add("(max-width: 767px)", () => {
   // Mobile animations (reduced movement)
-  gsap.from(".hero-left", {
+  gsap.from(".hero-content", {
     opacity: 0,
     y: 30,
     duration: 1,
     ease: "power3.out",
-  });
-
-  gsap.from(".hero-right", {
-    opacity: 0,
-    y: 30,
-    duration: 1,
-    ease: "power3.out",
-    delay: 0.2,
   });
 
   gsap.utils.toArray(".journey-card").forEach((card, index) => {
@@ -247,9 +231,9 @@ gsap.from("#about-text", {
   delay: 0.2
 });
 
-gsap.from("#techstack h2", {
+gsap.from("#tech-stack h2", {
   scrollTrigger: {
-    trigger: "#techstack",
+    trigger: "#tech-stack",
     start: "top 80%",
     toggleActions: "play none none reset"
   },
@@ -259,7 +243,7 @@ gsap.from("#techstack h2", {
   ease: "power3.out"
 });
 
-gsap.utils.toArray("#techstack .group").forEach((card, i) => {
+gsap.utils.toArray("#tech-stack .group").forEach((card, i) => {
   gsap.from(card, {
     scrollTrigger: {
       trigger: card,
@@ -520,6 +504,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const validation = detectGibberish(message);
 
       if (!validation.isValid) {
+        console.warn('Form validation failed:', validation.errors);
         showMessage(`Please fix the following issues:<br>${validation.errors.join('<br>')}`, 'error');
         // Reset button state
         submitBtn.disabled = false;
@@ -535,25 +520,31 @@ document.addEventListener('DOMContentLoaded', function () {
         message: formData.get('message')
       };
 
+      console.log('Attempting to send message with data:', data);
+
       try {
-        // Option 1: Using Formspree (you need to create your own endpoint)
-        // Replace 'YOUR_FORMSPREE_ENDPOINT' with your actual Formspree endpoint
-        const response = await fetch('https://formspree.io/f/mjkrlgar', {
+        const response = await fetch('https://formspree.io/f/xkogwrer', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json'
           },
           body: JSON.stringify(data)
         });
 
         if (response.ok) {
+          const result = await response.json();
+          console.log('Message sent successfully! Response:', result);
+          alert('Success! Your message has been sent. Please check your email for a confirmation if Formspree sends one.');
           showMessage('Thank you! Your message has been sent successfully. I\'ll get back to you soon!', 'success');
           contactForm.reset();
         } else {
+          const errorData = await response.json();
+          console.error('Formspree returned an error:', errorData);
           throw new Error('Failed to send message');
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Error during form submission:', error);
 
         // Fallback: Send email directly (this will open user's email client)
         const emailSubject = encodeURIComponent(`Portfolio Contact: ${data.subject}`);
